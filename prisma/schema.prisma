@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admission {
+  id             Int      @id @default(autoincrement())
+  childName      String
+  dob            String
+  ageGroup       String
+  gender         String?
+  parentName     String
+  relation       String
+  email          String
+  phone          String
+  alternatePhone String?
+  address        String
+  city           String
+  pincode        String?
+  heardAbout     String?
+  message        String?
+  status         String   @default("pending")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Enquiry {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  source    String?
+  createdAt DateTime @default(now())
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Gallery {
+  id          Int      @id @default(autoincrement())
+  title       String
+  imageUrl    String
+  category    String
+  publicId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Program {
+  id          Int      @id @default(autoincrement())
+  title       String
+  ageGroup    String
+  duration    String
+  ratio       String
+  description String
+  outcomes    String
+  activities  String
+  icon        String?
+  color       String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  childName String
+  text      String
+  rating    Int
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  name     String
+}
+
+model SiteInfo {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
