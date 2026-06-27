@@ -3,6 +3,9 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
+    if (!prisma) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+    }
     const body = await request.json();
     const { name, email, phone, message } = body;
 
@@ -23,6 +26,9 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
+    if (!prisma) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+    }
     const enquiries = await prisma.enquiry.findMany({ orderBy: { createdAt: "desc" } });
     return NextResponse.json(enquiries);
   } catch {
